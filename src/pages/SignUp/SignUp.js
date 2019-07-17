@@ -36,6 +36,8 @@ class SignUp extends Component {
     };
 
     newUserSignUp = async e => {
+        // e.preventDefault();
+        // console.log("comeinto method");
         try {
             e.preventDefault();
             this.emailValidator(this.state.email);
@@ -48,10 +50,10 @@ class SignUp extends Component {
                 console.log(res.data.code);
                 if(res.data.code==="Signup successful"){
                     //should let user check their email first
-                    history.push("signIn");
+                    history.push("signin");
                 }else{
                     alert("Sign up failed! Please try again!");
-                }
+                } 
             })
         } catch (e) {
             alert(e.message);
@@ -62,7 +64,7 @@ class SignUp extends Component {
         return (
             <div className="signin-container">
                 <div >
-                    <form onSubmit={this.NewUserSignUp}>
+                    <form onSubmit={this.newUserSignUp}>
                         <div class="form-group">
                             <input type="text" class="form-control" name="userName" placeholder="UserName" value={this.state.userName} onChange={this.handleChange} required></input>
                         </div>

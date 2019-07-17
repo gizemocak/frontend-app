@@ -43,7 +43,7 @@ class ForgotPassword extends Component {
             console.log(res.data.code);
             if(res.data.code==="Reset successful"){
               //need to develop that page
-                history.push("signIn");
+                history.push("signin");
             }else{
                 alert("Please try again!");
             }
@@ -56,19 +56,18 @@ class ForgotPassword extends Component {
   render() {
     return <div className="signin-container">
       <div >
-        <form >
+        <form onSubmit={this.resetPassword}>
           <div className="form-group">
             <input type="email" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
           </div>
           <div >
-            <button type="submit" name="signIn" className=" btn btn-info fogotpwd btn">Forgot Password</button>
+            <button type="submit" name="forget" className=" btn btn-info fogotpwd btn">Forgot Password</button>
           </div>
         </form>
       </div>
       <div className="signup-options-container">
-        <NavLink to="/signIn" className="signup-link">Sign In</NavLink>
-        <NavLink to="/signUp" className="forgot-password-link">Sign Up</NavLink>
-
+        <NavLink to="/signin" className="signup-link">Sign In</NavLink>
+        <NavLink to="/signup" className="forgot-password-link">Sign Up</NavLink>
       </div>
     </div>
   }
