@@ -51,9 +51,17 @@ class SignIn extends Component {
           // });
 
           jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: '1h' }, (err, token) => {
-            localStorage.setItem("userToken",token);
+            localStorage.setItem("userToken", token);
           });
-          
+          setTimeout(function () {
+            let token = localStorage.getItem('userToken');
+            console.log(token);
+
+            const decoded = jwt.decode(token, { complete: true });
+            console.log(decoded.payload.user);
+          }, 50);
+
+
           history.push("dashboard");
         } else {
           alert("Login Failed! Please Sign Up First!");

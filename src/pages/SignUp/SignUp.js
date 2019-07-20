@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import axios from "axios";
 import './SignUp.scss';
+import SignUpMessage from './signupMessage';
 const history = createBrowserHistory({ forceRefresh: true });
 var url = "http://165.227.42.25";
 class SignUp extends Component {
@@ -12,7 +13,8 @@ class SignUp extends Component {
             userName: "",
             email: "",
             password: "",
-            referralCode: ""
+            referralCode: "",
+            signedUp: false
         };
         this.newUserSignUp = this.newUserSignUp.bind(this);
         // this.emailValidator = this.emailValidator.bind(this);
@@ -48,12 +50,16 @@ class SignUp extends Component {
                 email: this.state.email
             }).then(res => {
                 console.log(res.data.code);
-                if(res.data.code==="Signup successful"){
+                if (res.data.code === "Signup successful") {
                     //should let user check their email first
+                    alert("Signup Successfully, Please verify your account through your email address");
+                    this.setState({
+                        signedUp:true
+                    });
                     history.push("signin");
-                }else{
+                } else {
                     alert("Sign up failed! Please try again!");
-                } 
+                }
             })
         } catch (e) {
             alert(e.message);
@@ -85,7 +91,9 @@ class SignUp extends Component {
                 <div class="signup-options-container">
                     <NavLink to="/signIn" className="signup-link" >Sign In</NavLink>
                     <NavLink to="/forgotpassword" className="forgot-password-link">Forgot</NavLink>
-
+                </div>
+                <div>
+                    {this.state.signedUp === true} ? <SignUpMessage /> : null
                 </div>
             </div>
         );
@@ -93,8 +101,3 @@ class SignUp extends Component {
 }
 
 export default SignUp;
-
-
-
-
-
