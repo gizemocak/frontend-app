@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import './Sidebar.scss';
 import Sidebar, { SidebarStyles } from 'react-sidebar';
 import axios from "axios";
@@ -12,12 +13,10 @@ class LeftSidebar extends Component {
         super(props);
         this.state = {
             ref_code: null
-          };
+        };
     }
-
-
-    componentDidMount(){
-        setTimeout( ()=> {
+    componentDidMount() {
+        setTimeout(() => {
             let token = localStorage.getItem('userToken');
             // console.log(token);
 
@@ -26,12 +25,12 @@ class LeftSidebar extends Component {
             const userName = decoded.payload.user;
 
             try {
-                axios.get(url + "/frontend/user_data/" + userName).then( res => {
+                axios.get(url + "/frontend/user_data/" + userName).then(res => {
                     // console.log(res.data.ref_code);
                     const referralCode = res.data.ref_code;
                     this.setState({
                         ref_code: referralCode
-                    });                    
+                    });
                     // console.log(this.state.ref_code)
                 })
             } catch (e) {
@@ -39,72 +38,63 @@ class LeftSidebar extends Component {
             }
         }, 50);
     }
-
-    getReferralCode = async e => {
-        // e.preventDefault();
-        console.log("comeinto method");
-        
-    };
+    logout= async e => {
+        localStorage.removeItem("userToken");
+    }
     render() {
         return (
-            <div className="sidebar-container">
-                <ul className="sidebar navbar-nav" >
-                    <div className="navigation-type">
-                        <li className="nav-item">
-                            <i className="fa fa-home"></i>
-                            <span>Dashboard</span>
-                        </li>
+            <div>
+                <ul class="sidebar navbar-nav" >
+                    <li id="li_dashboard" class="nav-item">
+                        <i className="fa fa-home"></i>
+                        <Link to="/dashboard" className="link"><span>Dashboard</span></Link>
+                    </li>
 
-                        <li className="nav-item">
-                            <i className="fa fa-empire"></i>
-                            <span>Affiliates</span>
-                        </li>
-                        <li className="nav-item">
-                            <i className="fa fa-clock-o"></i>
-                            <span>Stats</span>
-                        </li>
+                    <li id="li_Affiliates" class="nav-item">
+                        <i className="fa fa-empire"></i>
+                        <span>Affiliates</span>
+                    </li>
+                    <li id="li_Stats" class="nav-item">
+                        <i className="fa fa-clock-o"></i>
+                        <span>Stats</span>
+                    </li>
 
-                        <li className="nav-item">
-                            <i className="fa fa-line-chart"></i>
-                            <span>Exchange</span>
-                        </li>
-                    </div>
-                    <div className="Currency-type"><li className="nav-item">
+                    <li id="li_Exchange" class="nav-item">
+                        <i className="fa fa-line-chart"></i>
+                        <span>Exchange</span>
+                    </li>
+                    <li id="li_CLAM" class="nav-item">
                         <i className="fa fa-chevron-right"></i>
                         <span>CLAM</span>
                     </li>
-                        <li className="nav-item">
-                            <i className="fa fa-chevron-right"></i>
-                            <span>BTC</span>
-                        </li>
-                        <li className="nav-item">
-                            <i className="fa fa-chevron-right"></i>
-                            <span>CAD</span>
-                        </li>
-                        <li className="nav-item">
-                            <i className="fa fa-chevron-right"></i>
-                            <span>USD</span>
-                        </li>
-                        <li className="nav-item">
-                            <i className="fa fa-chevron-right"></i>
-                            <span>GOLD</span>
-                        </li>
-                    </div>
-                    <div className="other-containt">
-                        <li className="nav-item">
-                            <i className="fa fa-envelope-square"></i>
-                            <span>Contact</span>
-                        </li>
-                        <li className="nav-item">
-                            <i className="fa fa-sign-out"></i>
-                            <span>Logout</span>
-                        </li>
-                        <li className="nav-item">
-                            <span>Referral Code: {this.state.ref_code}</span>
-                        </li>
-                    </div>
+                    <li id="li_BTC" class="nav-item">
+                        <i className="fa fa-chevron-right"></i>
+                        <span>BTC</span>
+                    </li>
+                    <li id="li_CAD" class="nav-item">
+                        <i className="fa fa-chevron-right"></i>
+                        <span>CAD</span>
+                    </li>
+                    <li id="li_USD" class="nav-item">
+                        <i className="fa fa-chevron-right"></i>
+                        <span>USD</span>
+                    </li>
+                    <li id="li_GOLD" class="nav-item">
+                        <i className="fa fa-chevron-right"></i>
+                        <span>GOLD</span>
+                    </li>
+                    <li id="li_Contact" class="nav-item">
+                        <i className="fa fa-envelope-square"></i>
+                        <span>Contact</span>
+                    </li>
+                    <li id="li_Logout" class="nav-item" onClick={this.logout}> 
+                        <i className="fa fa-sign-out"></i>
+                        <span>Logout</span>
+                    </li>
+                    <li id="li_ReferralCode" class="nav-item">
+                        <span>Referral Code: {this.state.ref_code}</span>
+                    </li>
                 </ul>
-
             </div>
         );
     }
