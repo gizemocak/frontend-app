@@ -12,7 +12,8 @@ class LeftSidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            ref_code: null
+            ref_code: null,
+            currencies: []
         };
     }
     componentDidMount() {
@@ -37,8 +38,19 @@ class LeftSidebar extends Component {
                 alert(e.message);
             }
         }, 50);
+
+        axios.get(url + "/frontend/all_investments").then(res => {
+            console.log(res.data.investments.length);
+            var result = [];
+            for (var i = 0; i < res.data.investments.length; i++) {
+                result.push(res.data.investments[i].currency);
+            }
+            this.setState({
+                currencies: result
+            })
+        });
     }
-    logout= async e => {
+    logout = async e => {
         localStorage.removeItem("userToken");
     }
     render() {
@@ -58,36 +70,23 @@ class LeftSidebar extends Component {
                         <i className="fa fa-clock-o"></i>
                         <span>Stats</span>
                     </li>
-
                     <li id="li_Exchange" class="nav-item">
                         <i className="fa fa-line-chart"></i>
                         <span>Exchange</span>
                     </li>
-                    <li id="li_CLAM" class="nav-item">
+
+                    {this.state.currencies.map(function(item){
+                        return <li  class="nav-item">
                         <i className="fa fa-chevron-right"></i>
-                        <span>CLAM</span>
+                        <span>{item}</span>
                     </li>
-                    <li id="li_BTC" class="nav-item">
-                        <i className="fa fa-chevron-right"></i>
-                        <span>BTC</span>
-                    </li>
-                    <li id="li_CAD" class="nav-item">
-                        <i className="fa fa-chevron-right"></i>
-                        <span>CAD</span>
-                    </li>
-                    <li id="li_USD" class="nav-item">
-                        <i className="fa fa-chevron-right"></i>
-                        <span>USD</span>
-                    </li>
-                    <li id="li_GOLD" class="nav-item">
-                        <i className="fa fa-chevron-right"></i>
-                        <span>GOLD</span>
-                    </li>
+                    })}
+
                     <li id="li_Contact" class="nav-item">
                         <i className="fa fa-envelope-square"></i>
                         <span>Contact</span>
                     </li>
-                    <li id="li_Logout" class="nav-item" onClick={this.logout}> 
+                    <li id="li_Logout" class="nav-item" onClick={this.logout}>
                         <i className="fa fa-sign-out"></i>
                         <span>Logout</span>
                     </li>
