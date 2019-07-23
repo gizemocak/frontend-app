@@ -13,7 +13,7 @@ class ForgotPassword extends Component {
     this.state = {
       email: ""
     };
-    this.resetPassword = this.resetPassword.bind(this);
+    this.forgetPassword = this.forgetPassword.bind(this);
     this.handleChange = this.handleChange.bind(this);
   }
 
@@ -33,7 +33,7 @@ class ForgotPassword extends Component {
     return emailPattern.test(email);
   };
 
-  resetPassword = async e => {
+  forgetPassword = async e => {
     try {
         e.preventDefault();
         this.emailValidator(this.state.email);
@@ -56,7 +56,7 @@ class ForgotPassword extends Component {
   render() {
     return <div className="signin-container">
       <div >
-        <form onSubmit={this.resetPassword}>
+        <form onSubmit={this.forgetPassword}>
           <div className="form-group">
             <input type="email" className="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
           </div>

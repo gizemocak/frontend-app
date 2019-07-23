@@ -12,7 +12,6 @@ const history = createBrowserHistory({ forceRefresh: true });
 const url = "http://165.227.42.25";
 const jwt = require('jsonwebtoken');
 
-
 class SignIn extends Component {
   constructor(props) {
     super(props);

@@ -34,9 +34,19 @@
     /* color: white; */
   }
   
+ .overview-container{
+   width:100%;
+  min-height: 400px; 
+  }
+ .overview-table{
+   float: left;
+   width:50%;
+   margin-right: 5%;
+ }
 
-
-
+ .overview-graph {
+   float: right;
+ }
 
 // .dashboard-container {
 //     display: flex;

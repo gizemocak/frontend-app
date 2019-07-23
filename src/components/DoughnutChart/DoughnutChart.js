@@ -4,6 +4,8 @@ import { Doughnut } from 'react-chartjs-2';
 import './DoughnutChart.scss';
 
 class DoughnutChart extends Component {
+
+    
     render(){
         let data = this.getData();
         return (

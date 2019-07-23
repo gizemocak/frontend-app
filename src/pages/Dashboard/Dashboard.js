@@ -20,7 +20,6 @@ class Dashboard extends Component {
                         <div className="graph-container"><LineChart /></div>
                         <div className="table-container"><TransactionTable /></div>
                         <div className="transfer-modal-container"><TransferModal /></div>
-
                     </div>
                     <div className="forFooter">
                         <Footer />
