@@ -25,8 +25,8 @@ class DoughnutChart extends Component {
 
             axios.post(url + "/users/balance", {
                 key: "username",
-                value: "ayesha"
-                // value: username
+                // value: "ayesha"
+                value: username
             }).then(res => {
                 // console.log(res.data.user_balance);
                 var result = [];

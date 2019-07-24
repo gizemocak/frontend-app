@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import axios from "axios";
 const jwt = require('jsonwebtoken');
-const url = "http://178.128.233.31";
+const url = "http://178.128.233.31/backend";
 
 class ChartTable extends Component {
     constructor(props) {
@@ -23,8 +23,8 @@ class ChartTable extends Component {
 
             axios.post(url + "/users/balance", {
                 key: "username",
-                value: "ayesha"
-                // value: username
+                // value: "ayesha"
+                value: username
             }).then(res => {
                 // console.log(res.data.user_balance);
                 var result = [];
