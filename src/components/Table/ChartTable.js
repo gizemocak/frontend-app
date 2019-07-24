@@ -4,7 +4,7 @@ import ReactTable from 'react-table';
 import 'react-table/react-table.css';
 import axios from "axios";
 const jwt = require('jsonwebtoken');
-const url = "http://142.93.148.141";
+const url = "http://178.128.233.31";
 
 class ChartTable extends Component {
     constructor(props) {

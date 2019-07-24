@@ -6,7 +6,7 @@ import axios from "axios";
 import './ForgotPassword.scss';
 
 const history = createBrowserHistory({ forceRefresh: true });
-var url = "http://165.227.42.25";
+var url = "http://178.128.233.31";
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);

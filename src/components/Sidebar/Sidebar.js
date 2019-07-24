@@ -4,7 +4,7 @@ import './Sidebar.scss';
 import Sidebar, { SidebarStyles } from 'react-sidebar';
 import axios from "axios";
 
-const url = "http://165.227.42.25";
+const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
 
 class LeftSidebar extends Component {

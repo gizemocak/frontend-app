@@ -9,7 +9,7 @@ import decode from 'jwt-decode'
 import './SignIn.scss';
 
 const history = createBrowserHistory({ forceRefresh: true });
-const url = "http://165.227.42.25";
+const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
 
 class SignIn extends Component {
