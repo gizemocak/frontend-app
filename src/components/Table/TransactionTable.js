@@ -6,7 +6,7 @@ import ReactSearchBox from 'react-search-box'
 
 import axios from "axios";
 const jwt = require('jsonwebtoken');
-const url = "http://178.128.233.31";
+const url = "http://178.128.233.31/backend";
 
 class TransactionTable extends Component {
 
