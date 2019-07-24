@@ -35,7 +35,7 @@ class ChartTable extends Component {
                 this.setState({
                     tableData: result
                 })
-                console.log(this.state.tableData[1]);
+                // console.log(this.state.tableData[1]);
             });
         }, 50);
     };

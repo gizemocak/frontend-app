@@ -40,7 +40,7 @@ class LeftSidebar extends Component {
         }, 50);
 
         axios.get(url + "/frontend/all_investments").then(res => {
-            console.log(res.data.investments.length);
+            // console.log(res.data.investments.length);
             var result = [];
             for (var i = 0; i < res.data.investments.length; i++) {
                 result.push(res.data.investments[i].currency);

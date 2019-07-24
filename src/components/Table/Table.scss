@@ -15,27 +15,46 @@
     flex-direction: column;
     padding: 2vw;
     // border: 1px solid black;
-    min-width:80vw;
+    // min-width:80vw;
 
     .transaction-container{
         // border: 1px solid blue;
 
         .table-title {
             text-align: left;
+            margin-left: 15px;
+            font-size: 24px;
         }
 
         .table-filters {
+            font-size:18px;
             display: flex;
             // border: 1px solid pink;
             flex-direction: row;
             justify-content: space-between;
+
+            .search-container{
+                margin-right: 15px;
+                margin-bottom: 10px;
+            }
+            .display-container{
+                margin-left: 15px;
+                margin-top: 15px;
+
+                .numberOption{
+                    margin-left: 5px;
+                    margin-right: 5px;
+                }
+            }
         }
     }
     .reacttable-container{
         // border: 1px solid black;
-        min-width: 50vw;
+        // min-width: 50vw;
+        width:100%;
         margin: auto;
         box-shadow: 1px 2px 6px 3px #DBDBDB;
         border-radius: 5px;
+        font-size: 18px;
      }
 }
