@@ -10,9 +10,10 @@ function App() {
   return (
     <div className="App">
         <Switch>
+          <Route exact path="/" component={SignIn} />
           <Route path="/signin" component={SignIn}/>
           <Route path="/signup" component={SignUp}/>
-          <Route path="/forgotpassword" component={ForgotPassword}/>
+          <Route path="/forgotPassword" component={ForgotPassword}/>
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/resetPassword" component={ResetPassword}/>
           <Route render={ props => <Redirect to={{ pathname: '/signin', state: { from: props.location } }} /> } />
