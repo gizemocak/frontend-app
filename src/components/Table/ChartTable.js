@@ -23,19 +23,15 @@ class ChartTable extends Component {
 
             axios.post(url + "/users/balance", {
                 key: "username",
-                // value: "ayesha"
                 value: username
             }).then(res => {
-                // console.log(res.data.user_balance);
                 var result = [];
-    
                 for (var i = 0; i < res.data.user_balance.length; i++) {
                     result.push(this.getTableData(res.data.user_balance[i]));
                 }
                 this.setState({
                     tableData: result
                 })
-                // console.log(this.state.tableData[1]);
             });
         }, 50);
     };

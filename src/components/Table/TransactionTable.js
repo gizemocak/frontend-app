@@ -24,20 +24,32 @@ class TransactionTable extends Component {
             const decoded = jwt.decode(token, { complete: true });
             const username = decoded.payload.user;
 
-            axios.post(url + "/users/transaction_history", {
-                account_id: 40
-            }).then(res => {
-                console.log(res.data.transaction_history);
+            axios.post(url + "/users/get_accounts", {
+                username : username
+            }).then(res=>{
+
+                console.log(res.data.accounts[0].account_id);
+                var accountsList = [];
+                for(var i= 0; i<res.data.accounts.length; i++){
+                    accountsList.push(res.data.accounts[i].account_id);
+                }
+                // console.log(accountsList[1]);
                 var result = [];
 
-                for (var i = 0; i < res.data.transaction_history.length; i++) {
-                    result.push(this.getTransactionData(res.data.transaction_history[i]));
-                }
-                this.setState({
-                    transactionData: result
-                })
-                console.log(this.state.transactionData[1]);
-            });
+                for(var j=0; j<accountsList.length; j++){
+                    axios.post(url + "/users/transaction_history", {
+                        account_id: accountsList[j]
+                    }).then(res => {
+                        for (var k= 0; k< res.data.transaction_history.length; k++) {
+                            result.push(this.getTransactionData(res.data.transaction_history[k]));
+                        }
+                        this.setState({
+                            transactionData: result
+                        })
+                        // console.log(this.state.transactionData[1]);
+                    });
+                }                
+            })
         }, 50);
     };
 
