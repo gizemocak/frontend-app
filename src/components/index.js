@@ -5,3 +5,4 @@ export { default as LineChart } from './LineChart/LineChart';
 export { default as ChartTable } from './Table/ChartTable';
 export { default as TransactionTable } from './Table/TransactionTable';
 export { default as Footer } from './Footer/Footer';
+export { default as InviteFriend } from './Affiliates/InviteFriend';
