@@ -65,7 +65,7 @@ class LeftSidebar extends Component {
 
                     <li id="li_Affiliates" class="nav-item">
                         <i className="fa fa-empire"></i>
-                        <span>Affiliates</span>
+                        <Link to="/affiliates" className="link"><span>Affiliates</span></Link>
                     </li>
                     <li id="li_Stats" class="nav-item">
                         <i className="fa fa-clock-o"></i>
