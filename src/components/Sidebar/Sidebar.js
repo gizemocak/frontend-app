@@ -3,10 +3,10 @@ import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom'
 import './Sidebar.scss';
 import Sidebar, { SidebarStyles } from 'react-sidebar';
 import axios from "axios";
-
+import { createBrowserHistory } from "history";
 const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
-
+const history = createBrowserHistory({ forceRefresh: true });
 class LeftSidebar extends Component {
 
     constructor(props) {
@@ -53,6 +53,7 @@ class LeftSidebar extends Component {
     }
     logout = async e => {
         localStorage.removeItem("userToken");
+        history.push("signin");
     }
     render() {
         return (
