@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import './Affiliates.scss'
 
 const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
@@ -8,7 +9,7 @@ class InviteFriend extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            loggedInUser:"",
+            loggedInUser: "",
             email: "",
             ref_code: " "
         };
@@ -23,7 +24,7 @@ class InviteFriend extends Component {
             const userName = decoded.payload.user;
 
             this.setState({
-                loggedInUser:userName
+                loggedInUser: userName
             });
             try {
                 axios.get(url + "/frontend/user_data/" + userName).then(res => {
@@ -73,10 +74,14 @@ class InviteFriend extends Component {
 
     render() {
         return (
-            <div className="signin-container">
+            <div className="affiliates-container">
                 <div >
                     <form onSubmit={this.invite}>
-                        <card>Referral code:{this.state.ref_code}</card>
+                        <div className="referralCode-container">
+                            <label>Referral Code</label>
+                            <p>{this.state.ref_code}</p>
+                        </div>
+
                         <div class="form-group">
                             <input type="text" class="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
                         </div>

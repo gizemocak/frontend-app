@@ -92,9 +92,9 @@ class SignUp extends Component {
                     <NavLink to="/signIn" className="signup-link" >Sign In</NavLink>
                     <NavLink to="/forgotpassword" className="forgot-password-link">Forgot</NavLink>
                 </div>
-                <div>
+                {/* <div>
                     {this.state.signedUp === true} ? <SignUpMessage /> : null
-                </div>
+                </div> */}
             </div>
         );
     }

@@ -5,7 +5,7 @@ class Footer extends Component {
     render(){
         return (
                 <div className="footer-control">
-                    <div className="footer-filter">
+                    {/* <div className="footer-filter"> */}
                         <div>Dashboard</div>
                         <div>Affiliates</div>
                         <div>Stats</div>
@@ -13,7 +13,7 @@ class Footer extends Component {
                         <div>Contact</div>
                         <div>Logout</div>
                         <div>Referral Code</div>
-                    </div>
+                    {/* </div> */}
                 </div>
             
         );

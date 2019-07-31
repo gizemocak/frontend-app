@@ -1,14 +1,11 @@
-.footer-control{
-    padding-left: 15vw;
-    padding-right: 15vw;
-    padding-top: 28px;
-
-    .footer-filter{
-        display: flex;
-        flex-direction: row;
-        justify-content: space-around;
-        color: white;
-
-
-    }
+.footer-control {
+  padding-left: 15vw;
+  padding-right: 15vw;
+  padding-top: 10px;
+//   padding-bottom: 20px;
+  color: white; 
+  font-size: 18px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
 }

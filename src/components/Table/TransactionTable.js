@@ -28,7 +28,7 @@ class TransactionTable extends Component {
                 username : username
             }).then(res=>{
 
-                console.log(res.data.accounts[0].account_id);
+                // console.log(res.data.accounts[0].account_id);
                 var accountsList = [];
                 for(var i= 0; i<res.data.accounts.length; i++){
                     accountsList.push(res.data.accounts[i].account_id);
@@ -43,15 +43,38 @@ class TransactionTable extends Component {
                         for (var k= 0; k< res.data.transaction_history.length; k++) {
                             result.push(this.getTransactionData(res.data.transaction_history[k]));
                         }
+                        // console.log(this.sortDate(result[0].date,result[1].date));
+                        
+                        // array.sort(function(a,b){
+                        //     // Turn your strings into dates, and then subtract them
+                        //     // to get a value that is either negative, positive, or zero.
+                        //     return new Date(b.date) - new Date(a.date);
+                        //   });
+                        
+                        result.sort(function(a, b) {
+                            a = new Date(a.dateModified);
+                            b = new Date(b.dateModified);
+                            return a>b ? -1 : a<b ? 1 : 0;
+                        });
+
+                        // console.log(result.sort());
+                        // for(var x = 0; x<result.length; x++){
+                        //     console.log(result[x].date, result[x+1].date);
+                        // }
                         this.setState({
                             transactionData: result
                         })
-                        // console.log(this.state.transactionData[1]);
+                        // console.log(this.state.transactionData);
                     });
                 }                
             })
         }, 50);
     };
+
+    // sortDate = (a,b) => {
+    //     return a.getTime() - b.getTime();
+    // };
+
 
     getTransactionData = info => {
         return {

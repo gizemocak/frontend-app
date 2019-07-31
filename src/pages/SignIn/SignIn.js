@@ -78,7 +78,7 @@ class SignIn extends Component {
         <div >
           <form onSubmit={this.signIn}>
             <div class="form-group">
-              <input type="text" class="form-control" name="userName" placeholder="UerName" value={this.state.userName} onChange={this.handleChange} required></input>
+              <input type="text" class="form-control" name="userName" placeholder="UserName" value={this.state.userName} onChange={this.handleChange} required></input>
             </div>
             <div class="form-group">
               <input type="password" class="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required></input>

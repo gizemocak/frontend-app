@@ -1,67 +1,63 @@
 .mainPanel {
-    height: 100%;
-    width: 85%;
-    float: right;
-    display: table-cell;
-  }
-  .wrapper {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    min-height: 698px;
-    width:1347px;
-    display: table;
-    overflow: hidden;
-  }
-  .sidebarContainer {
-    height: 100%;
-    width: 15%;
-    float: left;
-    background-color: #646464;
-    display: table-cell;
-  }
-  .content {
-    margin-right: 5%;
-    margin-top: 3%;
-    margin-left: 5%;
-    margin-bottom: 20px;
-    min-height: 594px;
-  }
-  .forFooter {
-    height: 50px;
-    width: 100%;
-    background-color: #373737;
-    /* color: white; */
-  }
-  
- .overview-container{
-   width:100%;
-  min-height: 400px; 
-  }
- .overview-table{
-   float: left;
-   width:50%;
-   margin-right: 5%;
- }
+  height: 100%;
+  width: 85%;
+  float: right;
+  display: table-cell;
+}
+.wrapper {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  min-height: 698px;
+  width: 1347px;
+  display: table;
+  overflow: hidden;
+  font-family: Lato;
+  font-size: 16px;
+}
+.sidebarContainer {
+  height: 100%;
+  width: 15%;
+  float: left;
+  background-color: #646464;
+  display: table-cell;
+}
+.content {
+  margin-right: 5%;
+  margin-top: 3%;
+  margin-left: 5%;
+  margin-bottom: 20px;
+  min-height: 422px;
+}
+.forFooter {
+  height: 50px;
+  width: 100%;
+  background-color: #373737;
+  /* color: white; */
+}
 
- .overview-graph {
-   float: right;
- }
- .table-container{
-   
+.overview-container {
+  width: 100%;
+  min-height: 400px;
+}
+.overview-table {
+  float: left;
+  width: 50%;
+  margin-right: 5%;
+}
 
- }
+.overview-graph {
+  float: right;
+}
 // .dashboard-container {
 //     display: flex;
 //     flex-direction: row;
-
 
 //     .content-wrapper{
 //         display: flex;
 //         flex-direction: column;
 //         justify-content: center;
 //         width: -webkit-fill-available;
-
 
 //         .overview-container{
 //             display: flex;
@@ -81,8 +77,6 @@
 //                 margin: 30px;
 //             }
 //         }
-
-
 
 //         .footer-container{
 //             min-height: 8vh;
