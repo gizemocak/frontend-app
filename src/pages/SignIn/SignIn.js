@@ -44,23 +44,11 @@ class SignIn extends Component {
       }).then(res => {
         console.log(res.data.code);
         if (res.data.code === "Login successful") {
-          // console.log(res.data.token);
-          // this.setState({
-          //   isAuthenticated:true
-          // });
-
-          jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: '1h' }, (err, token) => {
+          //create jwt token and save it into localStorage
+          jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: 60 }, (err, token) => {
             localStorage.setItem("userToken", token);
           });
-          setTimeout(function () {
-            let token = localStorage.getItem('userToken');
-            console.log(token);
-
-            const decoded = jwt.decode(token, { complete: true });
-            console.log(decoded.payload.user);
-          }, 50);
-
-
+          //nav to dashboard page
           history.push("dashboard");
         } else {
           alert("Login Failed! Please Sign Up First!");
