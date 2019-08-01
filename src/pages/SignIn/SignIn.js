@@ -45,14 +45,23 @@ class SignIn extends Component {
         console.log(res.data.code);
         if (res.data.code === "Login successful") {
           //create jwt token and save it into localStorage
-          jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: 60 }, (err, token) => {
+          jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: '1h' }, (err, token) => {
             localStorage.setItem("userToken", token);
           });
           //nav to dashboard page
           history.push("dashboard");
-        } else {
-          alert("Login Failed! Please Sign Up First!");
+        }
+      }).catch(error => {
+        var errorResult = error.response.data.error;
+        if (errorResult === "Incorrect Password") {
+          alert("Incorrect Password, Please Try Again!");
+        } else if (errorResult === "Email unconfirmed") {
+          alert("Email Unconfirmed, Please Confirm Your Email First!");
+        } else if (errorResult === "User does not exist") {
+          alert("User Not Exist! Please Sign Up First!");
           history.push("signup");
+        } else {
+          alert("Network Error, Please Try Again!");
         }
       })
     } catch (e) {
@@ -65,14 +74,14 @@ class SignIn extends Component {
       <div className="signin-container">
         <div >
           <form onSubmit={this.signIn}>
-            <div class="form-group">
-              <input type="text" class="form-control" name="userName" placeholder="UserName" value={this.state.userName} onChange={this.handleChange} required></input>
+            <div className="form-group">
+              <input type="text" className="form-control" name="userName" placeholder="UserName" value={this.state.userName} onChange={this.handleChange} required></input>
             </div>
             <div class="form-group">
-              <input type="password" class="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required></input>
+              <input type="password" className="form-control" name="password" placeholder="Password" value={this.state.password} onChange={this.handleChange} required></input>
             </div>
             <div >
-              <button type="submit" name="signIn" class=" btn btn-info">Log In</button>
+              <button type="submit" name="signIn" className="btn btn-primary btn-m round">Login</button>
             </div>
           </form>
         </div>

@@ -14,12 +14,24 @@ class SignUp extends Component {
             email: "",
             password: "",
             referralCode: "",
-            signedUp: false
+            signedUp: false,
+            refCodeFromFriend: ""
         };
         this.newUserSignUp = this.newUserSignUp.bind(this);
         // this.emailValidator = this.emailValidator.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
+
+    componentDidMount() {
+        const query = new URLSearchParams(this.props.location.search);
+        const refCode = query.get('ref_code');
+        console.log(refCode);
+        if(refCode != null){
+            this.setState({
+                refCodeFromFriend:refCode
+            })
+        }    
+    };
 
     handleChange = event => {
         const target = event.target;
@@ -81,10 +93,13 @@ class SignUp extends Component {
                             <input type="email" class="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
                         </div>
                         <div class="form-group">
-                            <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.referralCode} onChange={this.handleChange} required></input>
+                            {this.state.refCodeFromFriend===null ? 
+                            <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.referralCode} onChange={this.handleChange} required></input> 
+                            : <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.refCodeFromFriend} />}
+                            
                         </div>
                         <div >
-                            <button type="submit" name="signIn" class=" btn btn-info">Sign Up</button>
+                            <button type="submit" name="signIn" class="btn btn-primary btn-m round">Sign Up</button>
                         </div>
                     </form>
                 </div>

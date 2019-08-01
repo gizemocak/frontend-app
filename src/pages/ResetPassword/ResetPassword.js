@@ -46,7 +46,7 @@ class ResetPassword extends Component {
                 }).then(res => {
                     console.log(res.data.code);
                     if (res.data.code === "Reset successful") {
-                        alert("Password reset successfully, you can login using the new password");
+                        alert("Password reset successfully, you can login using the new password now.");
                         history.push("signin");
                     } else {
                         alert("Please try again!");
@@ -67,7 +67,7 @@ class ResetPassword extends Component {
                         <input type="password" className="form-control" name="confirmPassword" placeholder="Confirm Password" value={this.state.confirmPassword} onChange={this.handleChange} required></input>
                     </div>
                     <div >
-                        <button type="submit" name="reset" className=" btn btn-info fogotpwd btn">Reset Password</button>
+                        <button type="submit" name="reset" className="btn btn-primary btn-m round">Reset Password</button>
                     </div>
                 </form>
             </div>
