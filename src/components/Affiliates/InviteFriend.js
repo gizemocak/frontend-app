@@ -15,31 +15,31 @@ class InviteFriend extends Component {
         };
         this.invite = this.invite.bind(this);
         this.handleChange = this.handleChange.bind(this);
-    }
+    };
 
     componentDidMount() {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-            const decoded = jwt.decode(token, { complete: true });
-            const userName = decoded.payload.user;
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    };
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
+        const decoded = jwt.decode(token, { complete: true });
+        const userName = decoded.payload.user;
+        // console.log(userName);
+        
+        try {
+            axios.get(url + "/frontend/user_data/" + userName).then(res => {
+                const referralCode = res.data.ref_code;
+                this.setState({
+                    ref_code: referralCode,
+                    loggedInUser: userName
+                });
+            })
 
-            this.setState({
-                loggedInUser: userName
-            });
-            try {
-                axios.get(url + "/frontend/user_data/" + userName).then(res => {
-                    // console.log(res.data.ref_code);
-                    const referralCode = res.data.ref_code;
-                    this.setState({
-                        ref_code: referralCode
-                    });
-                    // console.log(this.state.ref_code)
-                })
-            } catch (e) {
-                alert(e.message);
-            }
-        }, 50);
-    }
+        } catch (e) {
+            console.log(e);
+        }
+    };
     handleChange = event => {
         const target = event.target;
         const value = target.value;

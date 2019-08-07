@@ -15,42 +15,41 @@ class LeftSidebar extends Component {
             ref_code: null,
             currencies: []
         };
-    }
+    };
     componentDidMount() {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-            // console.log(token);
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    };
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
+        const decoded = jwt.decode(token, { complete: true });
+        const userName = decoded.payload.user;
+        console.log(userName);
 
-            const decoded = jwt.decode(token, { complete: true });
-            // console.log(decoded.payload.user);
-            const userName = decoded.payload.user;
-
-            try {
-                axios.get(url + "/frontend/user_data/" + userName).then(res => {
-                    // console.log(res.data.ref_code);
-                    const referralCode = res.data.ref_code;
-                    this.setState({
-                        ref_code: referralCode
-                    });
-                    // console.log(this.state.ref_code)
+        try {
+            axios.get(url + "/frontend/user_data/" + userName).then(res => {
+                // console.log(res.data.ref_code);
+                const referralCode = res.data.ref_code;
+                this.setState({
+                    ref_code: referralCode
+                });
+                // console.log(this.state.ref_code)
+            });
+            axios.get(url + "/frontend/all_investments").then(res => {
+                // console.log(res.data.investments);
+                var result = [];
+                for (var i = 0; i < res.data.investments.length; i++) {
+                    result.push(res.data.investments[i].currency);
+                }
+                const uniqueResult = Array.from(new Set(result));
+                this.setState({
+                    currencies: uniqueResult
                 })
-            } catch (e) {
-                alert(e.message);
-            }
-        }, 50);
-
-        axios.get(url + "/frontend/all_investments").then(res => {
-            // console.log(res.data.investments);
-            var result = [];
-            for (var i = 0; i < res.data.investments.length; i++) {
-                result.push(res.data.investments[i].currency);
-            }
-            const uniqueResult = Array.from(new Set(result));
-            this.setState({
-                currencies: uniqueResult
-            })
-        });
-    }
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    };
     logout = async e => {
         localStorage.removeItem("userToken");
         history.push("signin");
@@ -58,7 +57,7 @@ class LeftSidebar extends Component {
     render() {
         return (
             <div>
-                <ul class="sidebar navbar-nav" >
+                <ul className="sidebar navbar-nav" >
                     <li id="li_dashboard" class="nav-item">
                         <i className="fa fa-home"></i>
                         <Link to="/dashboard" className="link"><span>Dashboard</span></Link>
@@ -96,7 +95,7 @@ class LeftSidebar extends Component {
                         <span>Referral Code: {this.state.ref_code}</span>
                     </li>
                 </ul>
-            </div>
+            </div>  
         );
     }
 }

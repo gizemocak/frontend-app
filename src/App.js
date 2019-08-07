@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from "react-dom";
 import { Route, Switch, Redirect } from "react-router-dom";
 
-import { SignIn, SignUp, ForgotPassword, Dashboard} from './pages';
+import { SignIn, SignUp, ForgotPassword, Dashboard, AdminDashboard} from './pages';
 import ResetPassword from './pages/ResetPassword/ResetPassword';
 import './App.scss';
 import Affiliates from './pages/Affiliates/Affiliates';
@@ -18,6 +18,7 @@ function App() {
           <Route path="/dashboard" component={Dashboard}/>
           <Route path="/resetPassword" component={ResetPassword}/>
           <Route path="/affiliates" component={Affiliates}/>
+          <Route path="/adminDashboard" component = {AdminDashboard}/>
           <Route render={ props => <Redirect to={{ pathname: '/signin', state: { from: props.location } }} /> } />
         </Switch>
     </div>

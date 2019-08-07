@@ -49,6 +49,19 @@
 .overview-graph {
   float: right;
 }
+#lineView{
+  margin-right: 80px;
+  // margin-left: 10px;
+}
+ul{
+  text-align: left;
+}
+li{
+  display: inline;
+}
+.li-item:hover, .li-item:active, .li-item:visited{
+  color: #4D96CC;
+}
 // .dashboard-container {
 //     display: flex;
 //     flex-direction: row;

@@ -16,19 +16,21 @@ class DoughnutChart extends Component {
         };
     }
 
-    componentDidMount = () => {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-
-            const decoded = jwt.decode(token, { complete: true });
-            const username = decoded.payload.user;
-
+    componentDidMount() {
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    }
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
+        const decoded = jwt.decode(token, { complete: true });
+        const userName = decoded.payload.user;
+        // console.log(userName);
+        
+        try {
             axios.post(url + "/users/balance", {
                 key: "username",
-                // value: "ayesha"
-                value: username
+                value: userName
             }).then(res => {
-                // console.log(res.data.user_balance);
                 var result = [];
                 var totalBalanceCAD = 0;
                 for (var i = 0; i < res.data.user_balance.length; i++) {
@@ -41,11 +43,11 @@ class DoughnutChart extends Component {
                 this.setState({
                     doughnutData: result
                 })
-                // console.log(this.state.doughnutData[3]);
             });
-        }, 50);
-    };
-
+        } catch (e) {
+            console.log(e);
+        }
+    };  
     getDoughnutData = (info, totalBalanceCAD) => {
         return {
             currency: info.currency,

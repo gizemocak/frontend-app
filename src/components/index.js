@@ -6,3 +6,7 @@ export { default as ChartTable } from './Table/ChartTable';
 export { default as TransactionTable } from './Table/TransactionTable';
 export { default as Footer } from './Footer/Footer';
 export { default as InviteFriend } from './Affiliates/InviteFriend';
+export {default as Withdraw} from './Admin/Withdraw';
+export {default as Deposit} from './Admin/Deposit';
+export {default as Transfer} from './Admin/Transfer';
+export {default as GlobalUpdate} from './Admin/GlobalUpdate';

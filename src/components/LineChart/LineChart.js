@@ -53,53 +53,50 @@ class LineChart extends Component {
             lineChartData: [],
             investmentType: []
         };
+    };
+    componentDidMount() {
+        this.loadData();
+        setInterval(this.loadData, 30000);
     }
-    componentDidMount = () => {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-
-            const decoded = jwt.decode(token, { complete: true });
-            const username = decoded.payload.user;
-
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
+        const decoded = jwt.decode(token, { complete: true });
+        const userName = decoded.payload.user;
+        // console.log(userName);
+        
+        try {
             axios.post(url + "/users/balance_history", {
-                username: username,
+                username: userName,
                 time_period_days: 90
             }).then(res => {
-                // console.log(res.data);
                 var result = [];
                 const count = res.data.balance_history.length;
                 const investment = [];
                 for (var i = 0; i < count; i++) {
                     investment.push(this.getBalanceHistoryData(res.data.balance_history[i]))
                 }
-                // this.setState({
-                //     investmentType: investment
-                // })
-                // console.log(this.state.investmentType);
-                ///////////////////////////////////
-                console.log(investment);
+                // console.log(investment);
                 var date = [];
                 var dataset = [];
-                console.log(investment[0].account_history.length);
+                // console.log(investment[0].account_history.length);
                 for (var x = investment[0].account_history.length - 1; x >= 0 ; x--) {
                     date.push(investment[0].account_history[x].date);
                 }
-                
                 for (var j = 0; j < investment.length; j++) {
-
                     dataset.push(this.getDataset(investment[j]));
                     let customData = {
                         labels: date,
                         datasets: dataset
                     }
-                    // console.log(customData);
                     this.setState({
                         lineChartData: customData
                     })
-                    console.log(this.state.lineChartData);
+                    // console.log(this.state.lineChartData);
                 }
             });
-        }, 50);
+        } catch (e) {
+            console.log(e);
+        }
     };
     getBalanceHistoryData = info => {
         return {
@@ -142,8 +139,7 @@ class LineChart extends Component {
             <div className="line-chart-container">
                 <div className="line-chart-wrapper">
                     <div className="line-chart-controls">
-                        <div>Line Chart View</div>
-                        <div>Mountain Chart View</div>
+                        
                         <div>
                             <select>
                                 <option value='last_30'>Last 30 Days</option>

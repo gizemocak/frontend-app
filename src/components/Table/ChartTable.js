@@ -15,14 +15,14 @@ class ChartTable extends Component {
             tableData: []
         };
         this.getTableData = this.getTableData.bind(this);
-    }
-
-    componentDidMount = () => {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-
-            // const decoded = jwt.decode(token, { complete: true });
-            // const username = decoded.payload.user;
+    };
+    componentDidMount() {
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    };
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
+        try {
             jwt.verify(token, "secretkey",  (err, decoded) =>{
                 if (!err) {
                     console.log(decoded.user);
@@ -45,9 +45,10 @@ class ChartTable extends Component {
                     history.push("signin");
                 }
             });
-        }, 50);
+        } catch (e) {
+            console.log(e);
+        }
     };
-
     getTableData = info => {
         return {
             currency: info.currency,

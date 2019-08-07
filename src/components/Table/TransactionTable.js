@@ -15,67 +15,34 @@ class TransactionTable extends Component {
         this.state = {
             transactionData: []
         };
-    }
-
-    componentDidMount = () => {
-        setTimeout(() => {
-            let token = localStorage.getItem('userToken');
-
-            const decoded = jwt.decode(token, { complete: true });
-            const username = decoded.payload.user;
-
-            axios.post(url + "/users/get_accounts", {
-                username : username
-            }).then(res=>{
-
-                // console.log(res.data.accounts[0].account_id);
-                var accountsList = [];
-                for(var i= 0; i<res.data.accounts.length; i++){
-                    accountsList.push(res.data.accounts[i].account_id);
-                }
-                // console.log(accountsList[1]);
-                var result = [];
-
-                for(var j=0; j<accountsList.length; j++){
-                    axios.post(url + "/users/transaction_history", {
-                        account_id: accountsList[j]
-                    }).then(res => {
-                        for (var k= 0; k< res.data.transaction_history.length; k++) {
-                            result.push(this.getTransactionData(res.data.transaction_history[k]));
-                        }
-                        // console.log(this.sortDate(result[0].date,result[1].date));
-                        
-                        // array.sort(function(a,b){
-                        //     // Turn your strings into dates, and then subtract them
-                        //     // to get a value that is either negative, positive, or zero.
-                        //     return new Date(b.date) - new Date(a.date);
-                        //   });
-                        
-                        result.sort(function(a, b) {
-                            a = new Date(a.dateModified);
-                            b = new Date(b.dateModified);
-                            return a>b ? -1 : a<b ? 1 : 0;
-                        });
-
-                        // console.log(result.sort());
-                        // for(var x = 0; x<result.length; x++){
-                        //     console.log(result[x].date, result[x+1].date);
-                        // }
-                        this.setState({
-                            transactionData: result
-                        })
-                        // console.log(this.state.transactionData);
-                    });
-                }                
-            })
-        }, 50);
     };
+    componentDidMount() {
+        this.loadData();
+        setInterval(this.loadData, 30000);
+    }
+    loadData = async e => {
+        let token = localStorage.getItem('userToken');
 
-    // sortDate = (a,b) => {
-    //     return a.getTime() - b.getTime();
-    // };
+        const decoded = jwt.decode(token, { complete: true });
+        const userName = decoded.payload.user;
+        try {
+            axios.post(url + "/accounts/transaction_history", {
+                username: userName
+            }).then(res => {
 
-
+                console.log(res.data.transaction_history);
+                var result = [];
+                for (var k = 0; k < res.data.transaction_history.length; k++) {
+                    result.push(this.getTransactionData(res.data.transaction_history[k]));
+                }
+                this.setState({
+                    transactionData: result.reverse()
+                })
+            });
+        } catch (e) {
+            console.log(e);
+        }
+    }
     getTransactionData = info => {
         return {
             date: info.time,
@@ -94,7 +61,7 @@ class TransactionTable extends Component {
 
         const columns = [{
             Header: 'Date',
-            accessor: 'date', // String-based value accessors!
+            accessor: 'date', 
         }, {
             Header: 'Investment',
             accessor: 'investment',
@@ -136,7 +103,7 @@ class TransactionTable extends Component {
                         <ReactTable className="-striped"
                             data={data}
                             columns={columns}
-                            pageSize={data.length}
+                            pageSize={(data.length > 10) ? 10 : data.length}
                             showPagination={false}
                         />
                     </div>
