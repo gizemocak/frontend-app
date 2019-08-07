@@ -48,8 +48,11 @@ class SignIn extends Component {
           jwt.sign({ user: this.state.userName }, 'secretkey', { expiresIn: '1h' }, (err, token) => {
             localStorage.setItem("userToken", token);
           });
-          //nav to dashboard page
-          history.push("dashboard");
+          if (this.state.userName === "admin") {
+            history.push("adminDashboard")
+          } else {
+            history.push("dashboard");
+          }
         }
       }).catch(error => {
         var errorResult = error.response.data.error;

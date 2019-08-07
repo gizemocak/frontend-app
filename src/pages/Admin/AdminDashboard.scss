@@ -1,0 +1,12 @@
+.withdraw-modal-container, .deposit-modal-container, .update-modal-container,.transfer-modal-container{
+    width:40%; 
+}
+.withdraw-modal-container, .deposit-modal-container{
+    display: inline-block;
+}
+.update-modal-container,.transfer-modal-container{
+    display: inline-block;
+}
+.withdraw-modal-container,.transfer-modal-container{
+    margin-right: 10%;
+}

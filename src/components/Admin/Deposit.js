@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from "axios";
+import'./style.scss'
 const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
 
@@ -82,8 +83,8 @@ class Deposit extends Component {
 
     render() {
         return (
-            <div className="transfer-container">
-                <div className="transfer-form-wrapper">
+            <div className="deposit-container">
+                <div className="form-container">
                     <div className="form">
                         <form onSubmit={this.deposit}>
                             <div className="form-group">

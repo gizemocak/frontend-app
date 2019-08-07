@@ -12,6 +12,7 @@ class LeftSidebar extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            loggedInUser:"",
             ref_code: null,
             currencies: []
         };
@@ -25,6 +26,9 @@ class LeftSidebar extends Component {
         const decoded = jwt.decode(token, { complete: true });
         const userName = decoded.payload.user;
         console.log(userName);
+        this.setState({
+            loggedInUser: userName
+        })
 
         try {
             axios.get(url + "/frontend/user_data/" + userName).then(res => {
@@ -60,7 +64,8 @@ class LeftSidebar extends Component {
                 <ul className="sidebar navbar-nav" >
                     <li id="li_dashboard" class="nav-item">
                         <i className="fa fa-home"></i>
-                        <Link to="/dashboard" className="link"><span>Dashboard</span></Link>
+                        {this.state.loggedInUser ==="admin" ? <Link to="./adminDashboard" className="link"><span>Dashboard</span></Link>
+                         : <Link to="/dashboard" className="link"><span>Dashboard</span></Link> }
                     </li>
 
                     <li id="li_Affiliates" class="nav-item">

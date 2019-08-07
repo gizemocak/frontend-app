@@ -80,8 +80,8 @@ class GlobalUpdate extends Component {
 
     render() {
         return (
-            <div className="transfer-container">
-                <div className="transfer-form-wrapper">
+            <div className="deposit-container">
+                <div className="form-container">
                     <div className="form">
                         <form onSubmit={this.globalUpdate}>
                             <div class="form-group">

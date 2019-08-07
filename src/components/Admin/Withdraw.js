@@ -65,12 +65,12 @@ class Withdraw extends Component {
                 amount:  this.state.amount
             }).then(res => {
                 console.log(res.data);
-                if (res.data.code === "Deposit successful") {
-                    alert("Deposit successfully, Thank you!");
-                }
+                // if (res.data.code === "Deposit successful") {
+                //     alert("Deposit successfully, Thank you!");
+                // }
             }).catch(error => {
                 console.log(error.response.data.error);
-                alert(error.response.data.msg + "Please Try Again");
+                alert(error.response.data.msg + " " + "Please Try Again");
               })
 
         } catch (e) {
@@ -81,8 +81,8 @@ class Withdraw extends Component {
 
     render() {
         return (
-            <div className="transfer-container">
-                <div className="transfer-form-wrapper">
+            <div className="deposit-container">
+                <div className="form-container">
                     <div className="form">
                         <form onSubmit={this.deposit}>
                             <div className="form-group">
@@ -100,7 +100,7 @@ class Withdraw extends Component {
                                 <input type="number" className="form-control" name="amount" placeholder="Amount" value={this.state.amount} onChange={this.handleChange} required></input>
                             </div>
                             <div >
-                                <button type="submit" name="deposit" className="btn btn-primary btn-m round">Deposit</button>
+                                <button type="submit" name="deposit" className="btn btn-primary btn-m round">Withdraw</button>
                             </div>
                         </form>
                     </div>

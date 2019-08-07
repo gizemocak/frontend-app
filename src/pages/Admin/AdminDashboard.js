@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import './AdminDashboard.scss'
 import { LeftSidebar, TransferModal, DoughnutChart, LineChart, ChartTable, TransactionTable, Footer, Withdraw, Deposit, Transfer, GlobalUpdate } from './../../components';
 
 class Dashboard extends Component {
@@ -48,10 +48,10 @@ class Dashboard extends Component {
                         </div>
 
                         <div className="table-container"><TransactionTable /></div>
-                        <div className="transfer-modal-container"><Withdraw /></div>
-                        <div><Deposit /></div>
-                        <div><Transfer/></div>
-                        <div><GlobalUpdate/></div>
+                        <div className="withdraw-modal-container"><Withdraw /></div>
+                        <div className="deposit-modal-container"><Deposit /></div>
+                        <div className="transfer-modal-container"><Transfer/></div>
+                        <div className="update-modal-container"><GlobalUpdate/></div>
                     </div>
                     <div className="forFooter"> 
                         <Footer />
