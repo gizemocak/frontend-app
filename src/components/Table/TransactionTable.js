@@ -7,6 +7,7 @@ import ReactSearchBox from 'react-search-box'
 import axios from "axios";
 const jwt = require('jsonwebtoken');
 const url = "http://178.128.233.31/backend";
+var numeral = require('numeral');
 
 class TransactionTable extends Component {
 
@@ -75,7 +76,8 @@ class TransactionTable extends Component {
             id: 'amount_in_CAD',
             Header: 'Amount in CAD',
             accessor: (data) => {
-                return '$' + data.amount_in_CAD.toFixed(2);
+                var stringCAD = numeral(data.amount_in_CAD).format('$000,000,000.00000000');
+                return stringCAD;
             }
         }]
         return (

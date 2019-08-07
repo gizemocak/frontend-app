@@ -7,6 +7,7 @@ import { createBrowserHistory } from "history";
 const history = createBrowserHistory({ forceRefresh: true });
 const jwt = require('jsonwebtoken');
 const url = "http://178.128.233.31/backend";
+var numeral = require('numeral');
 
 class ChartTable extends Component {
     constructor(props) {
@@ -23,7 +24,7 @@ class ChartTable extends Component {
     loadData = async e => {
         let token = localStorage.getItem('userToken');
         try {
-            jwt.verify(token, "secretkey",  (err, decoded) =>{
+            jwt.verify(token, "secretkey", (err, decoded) => {
                 if (!err) {
                     console.log(decoded.user);
                     const username = decoded.user;
@@ -63,21 +64,25 @@ class ChartTable extends Component {
             data.push(this.state.tableData[i]);
             balanceCAD += this.state.tableData[i].balance_cad;
         }
-        data.push({ currency: "Total in CAD", balance: 0, balance_cad: balanceCAD });
+        data.push({ currency: "Total in CAD", balance_cad: balanceCAD });
         const columns = [{
             accessor: 'currency', // String-based value accessors!
         }, {
             // accessor: 'balance',
             id: 'balance',
             accessor: (data) => {
-                return data.balance.toFixed(3);
+                if (data.balance != null) {
+                    var stringNumber = numeral(data.balance).format('$000,000,000.00000000');
+                    return stringNumber;
+                }
             },
 
         }, {
             // accessor: 'balance_cad',
             id: 'balance_cad',
             accessor: (data) => {
-                return '$' + data.balance_cad.toFixed(2);
+                var stringCAD = numeral(data.balance_cad).format('$000,000,000.00000000');
+                return stringCAD;
             },
         }]
 
