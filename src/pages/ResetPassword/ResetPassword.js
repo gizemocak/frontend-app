@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { createBrowserHistory } from "history";
 import axios from "axios";
+import { serverIP } from '../../config'
 
 const history = createBrowserHistory({ forceRefresh: true });
-var url = "http://178.128.233.31";
+
 
 class ResetPassword extends Component {
     constructor(props) {
@@ -40,7 +41,7 @@ class ResetPassword extends Component {
             e.preventDefault();
             if (this.state.newPassword === this.state.confirmPassword) {
 
-                await axios.post(url + "/frontend/update_password", {
+                await axios.post(serverIP + "/frontend/update_password", {
                     token: this.state.token,
                     pass: this.state.newPassword
                 }).then(res => {

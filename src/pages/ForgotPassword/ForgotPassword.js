@@ -4,9 +4,9 @@ import { createBrowserHistory } from "history";
 import axios from "axios";
 
 import './ForgotPassword.scss';
+import { serverIP } from '../../config'
 
 const history = createBrowserHistory({ forceRefresh: true });
-var url = "http://178.128.233.31";
 class ForgotPassword extends Component {
   constructor(props) {
     super(props);
@@ -37,7 +37,7 @@ class ForgotPassword extends Component {
     try {
         e.preventDefault();
         this.emailValidator(this.state.email);
-        await axios.post(url + "/frontend/reset_password", {
+        await axios.post(serverIP + "/frontend/reset_password", {
             email: this.state.email
         }).then(res => {
             console.log(res.data.code);

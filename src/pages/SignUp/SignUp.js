@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { NavLink } from 'react-router-dom';
 import { createBrowserHistory } from "history";
 import axios from "axios";
+import { serverIP } from '../../config';
 import './SignUp.scss';
 import SignUpMessage from './signupMessage';
 const history = createBrowserHistory({ forceRefresh: true });
-var url = "http://178.128.233.31";
+
 class SignUp extends Component {
     constructor(props) {
         super(props);
@@ -30,7 +31,7 @@ class SignUp extends Component {
             this.setState({
                 refCodeFromFriend:refCode
             })
-        }    
+        }
     };
 
     handleChange = event => {
@@ -55,7 +56,7 @@ class SignUp extends Component {
         try {
             e.preventDefault();
             this.emailValidator(this.state.email);
-            await axios.post(url + "/frontend/signup", {
+            await axios.post(serverIP + "/frontend/signup", {
                 code: this.state.referralCode,
                 password: this.state.password,
                 username: this.state.userName,
@@ -93,10 +94,10 @@ class SignUp extends Component {
                             <input type="email" class="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
                         </div>
                         <div class="form-group">
-                            {this.state.refCodeFromFriend===null ? 
-                            <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.referralCode} onChange={this.handleChange} required></input> 
+                            {this.state.refCodeFromFriend===null ?
+                            <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.referralCode} onChange={this.handleChange} required></input>
                             : <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.refCodeFromFriend} />}
-                            
+
                         </div>
                         <div >
                             <button type="submit" name="signIn" class="btn btn-primary btn-m round">Sign Up</button>

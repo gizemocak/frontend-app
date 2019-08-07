@@ -5,11 +5,11 @@ import { fetchToken } from '../../actions/signInActions';
 import { NavLink } from 'react-router-dom';
 import axios from "axios";
 import { createBrowserHistory } from "history";
+import { serverIP } from '../../config';
 import decode from 'jwt-decode'
 import './SignIn.scss';
 
 const history = createBrowserHistory({ forceRefresh: true });
-const url = "http://178.128.233.31";
 const jwt = require('jsonwebtoken');
 
 class SignIn extends Component {
@@ -38,7 +38,7 @@ class SignIn extends Component {
     try {
       e.preventDefault();
       console.log(this.state.userName, this.state.password);
-      await axios.post(url + "/frontend/login", {
+      await axios.post(serverIP + "/frontend/login", {
         password: this.state.password,
         username: this.state.userName
       }).then(res => {
