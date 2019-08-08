@@ -1,7 +1,7 @@
 export { default as LeftSidebar } from './Sidebar/Sidebar';
 export { default as TransferModal } from './TransferModal/TransferModal';
 export { default as DoughnutChart } from './DoughnutChart/DoughnutChart';
-export { default as LineChart } from './LineChart/LineChart';
+// export { default as LineChart } from './LineChart/LineChart';
 export { default as ChartTable } from './Table/ChartTable';
 export { default as TransactionTable } from './Table/TransactionTable';
 export { default as Footer } from './Footer/Footer';
@@ -10,3 +10,6 @@ export {default as Withdraw} from './Admin/Withdraw';
 export {default as Deposit} from './Admin/Deposit';
 export {default as Transfer} from './Admin/Transfer';
 export {default as GlobalUpdate} from './Admin/GlobalUpdate';
+export {default as PieChart} from './HighChart/PieChart';
+export {default as LineChart} from './HighChart/LineChart';
+export {default as MountainChart} from './HighChart/MountainChart';

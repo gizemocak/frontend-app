@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import './AdminDashboard.scss'
 import { LeftSidebar, TransferModal, DoughnutChart, LineChart, ChartTable, TransactionTable, Footer, Withdraw, Deposit, Transfer, GlobalUpdate } from './../../components';
-
+import PieChartCom from '../../components/HighChart/PieChart';
 class Dashboard extends Component {
     constructor(props) {
         super(props);
@@ -31,7 +31,7 @@ class Dashboard extends Component {
                     <div className="content">
                         <div className="overview-container">
                             <div className="overview-table"><ChartTable /></div>
-                            <div className="overview-graph"><DoughnutChart /></div>
+                            <div className="overview-graph"><PieChartCom /></div>
                         </div> 
                         <div>
                             <div>

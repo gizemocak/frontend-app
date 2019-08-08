@@ -12,7 +12,7 @@ class Withdraw extends Component {
             amount: "",
             investments: []
         };
-        this.deposit = this.deposit.bind(this);
+        this.withdraw = this.withdraw.bind(this);
         this.handleChange = this.handleChange.bind(this);
     };
 
@@ -55,19 +55,20 @@ class Withdraw extends Component {
         });
     };
 
-    deposit = async e => {
+    withdraw = async e => {
         try {
             e.preventDefault();
             console.log(this.state.investment, this.state.username, this.state.amount);
             await axios.post(url + "/backend/transactions/withdrawal", {
                 username: "admin", 
+                withdraw_from: this.state.username,
                 investment_id: this.state.investment,
                 amount:  this.state.amount
             }).then(res => {
-                console.log(res.data);
-                // if (res.data.code === "Deposit successful") {
-                //     alert("Deposit successfully, Thank you!");
-                // }
+                // console.log(res.data);
+                if (res.data.code === "Withdrawal successful") {
+                    alert("Withdrawal successfully, Thank you!");
+                }
             }).catch(error => {
                 console.log(error.response.data.error);
                 alert(error.response.data.msg + " " + "Please Try Again");
@@ -84,7 +85,7 @@ class Withdraw extends Component {
             <div className="deposit-container">
                 <div className="form-container">
                     <div className="form">
-                        <form onSubmit={this.deposit}>
+                        <form onSubmit={this.withdraw}>
                             <div className="form-group">
                                 <select type="text" className="form-control" name="investment" placeholder="Investment" value={this.state.investment} onChange={this.handleChange} required>
                                     <option>Investment</option>

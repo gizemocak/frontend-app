@@ -21,7 +21,6 @@ class SignUp extends Component {
         // this.emailValidator = this.emailValidator.bind(this);
         this.handleChange = this.handleChange.bind(this);
     }
-
     componentDidMount() {
         const query = new URLSearchParams(this.props.location.search);
         const refCode = query.get('ref_code');
@@ -93,9 +92,9 @@ class SignUp extends Component {
                             <input type="email" class="form-control" name="email" placeholder="Email" value={this.state.email} onChange={this.handleChange} required></input>
                         </div>
                         <div class="form-group">
-                            {this.state.refCodeFromFriend===null ? 
+                            {this.state.refCodeFromFriend==="" ? 
                             <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.referralCode} onChange={this.handleChange} required></input> 
-                            : <input type="text" class="form-control" name="referralCode" placeholder="Referral code" value={this.state.refCodeFromFriend} />}
+                            : <input type="text" class="form-control" name="referralCodeFromFriend" placeholder="Referral code" value={this.state.refCodeFromFriend} />}
                             
                         </div>
                         <div >

@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import './Dashboard.scss';
 
-import { LeftSidebar, TransferModal, DoughnutChart, LineChart, ChartTable, TransactionTable, Footer } from './../../components';
+import { LeftSidebar, TransferModal, DoughnutChart, LineChart, ChartTable, TransactionTable, Footer, MountainChart } from './../../components';
+import PieChartCom from '../../components/HighChart/PieChart';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -32,7 +33,7 @@ class Dashboard extends Component {
                     <div className="content">
                         <div className="overview-container">
                             <div className="overview-table"><ChartTable /></div>
-                            <div className="overview-graph"><DoughnutChart /></div>
+                            <div className="overview-graph"><PieChartCom /></div>
                         </div>
                         <div>
                             <div>
@@ -42,8 +43,8 @@ class Dashboard extends Component {
                                 </ul>
                             </div>
                             <div>
-                                {this.state.activeTab === "LineChartView" ? <div className="graph-container"><LineChart /></div> : null}
-                                {this.state.activeTab === "MountainChartView" ? <div className="graph-container">MountainChartView</div> : null}
+                                {this.state.activeTab === "LineChartView" ? <div className="graph-container"><LineChart /></div> 
+                                : <div className="graph-container"><MountainChart/></div>}
                             </div>
 
                         </div>

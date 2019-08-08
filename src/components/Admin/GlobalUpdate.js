@@ -64,9 +64,11 @@ class GlobalUpdate extends Component {
                 username: "admin"
             }).then(res => {
                 console.log(res.data);
-                // if (res.data.code === "Deposit successful") {
-                //     alert("Deposit successfully, Thank you!");
-                // }
+                if (res.data.code === "balance updated") {
+                    alert("balance updated, Thank you!");
+                    // this.location.reload();
+                }
+
             }).catch(error => {
                 console.log(error.response.data.error);
                 alert(error.response.data.msg + " " + "Please Try Again");
