@@ -14,7 +14,7 @@ class TransactionTable extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            historyOption:10,
+            historyOption: 10,
             transactionData: []
         };
         this.handleChange = this.handleChange.bind(this);
@@ -50,21 +50,48 @@ class TransactionTable extends Component {
                 this.setState({
                     transactionData: result.reverse()
                 })
+
+                console.log(this.state.transactionData);
             });
         } catch (e) {
             console.log(e);
         }
     }
     getTransactionData = info => {
+        var stringNumAmount = info.amount.toString();
+        if (info.account_balance_cad != null) {
+            var stringNumBalance = info.account_balance_cad.toFixed(8).toString();
+        } else {
+            var stringNumBalance = "0";
+        }
         return {
             date: info.time,
-            investment: info.type,
+            investment: info.currency,
             description: info.description,
-            amount: info.amount,
-            amount_in_CAD: info.account_balance_cad
+            amount: this.numberFormat(stringNumAmount),
+            amount_in_CAD: this.numberFormat(stringNumBalance)
         };
     };
 
+    numberFormat(stringData){
+        if (stringData.length<8){
+            stringData = stringData;
+        }
+        else if(stringData.length <= 12) {
+            stringData = stringData.substring(0, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        } else if (stringData.length <= 15) {
+            stringData = stringData.substring(0, stringData.length - 12) + ","
+                + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        } else if(stringData.length<=18){
+            stringData = stringData.substring(0, stringData.length - 15) + ","
+                + stringData.substring(stringData.length - 15, stringData.length - 12) + ","
+                + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        }
+        return stringData;
+    }
     render() {
         var data = [];
         for (var i = 0; i < this.state.transactionData.length; i++) {
@@ -73,7 +100,7 @@ class TransactionTable extends Component {
 
         const columns = [{
             Header: 'Date',
-            accessor: 'date', 
+            accessor: 'date',
         }, {
             Header: 'Investment',
             accessor: 'investment',
@@ -86,9 +113,14 @@ class TransactionTable extends Component {
         }, {
             id: 'amount_in_CAD',
             Header: 'Amount in CAD',
+            // accessor: (data) => {
+            //     var stringCAD = numeral(data.amount_in_CAD).format('$000,000,000.00000000');
+            //     return stringCAD;
+            // }
+            // accessor: 'amount_in_CAD'
+
             accessor: (data) => {
-                var stringCAD = numeral(data.amount_in_CAD).format('$000,000,000.00000000');
-                return stringCAD;
+                return '$' + data.amount_in_CAD;
             }
         }]
         return (
@@ -117,7 +149,7 @@ class TransactionTable extends Component {
                         <ReactTable className="-striped"
                             data={data}
                             columns={columns}
-                            pageSize={this.state.historyOption !=20 && this.state.historyOption !="all" ? 10: this.state.historyOption ===20 ?20: data.length}
+                            pageSize={this.state.historyOption != 20 && this.state.historyOption != "all" ? 10 : this.state.historyOption === 20 ? 20 : data.length}
                             showPagination={false}
                         />
                     </div>

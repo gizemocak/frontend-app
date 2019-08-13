@@ -12,6 +12,7 @@ class PieChartCom extends React.Component {
         this.state = {
             doughnutData: []
         };
+        this.numberFormat = this.numberFormat.bind(this);
     }
 
     componentDidMount() {
@@ -52,6 +53,25 @@ class PieChartCom extends React.Component {
             balance_cad_percentage: (info.balance_cad / totalBalanceCAD).toFixed(5)*100
         };
     };
+    numberFormat = stringData =>{
+        if (stringData.length<8){
+            stringData = stringData;
+        }
+        else if(stringData.length <= 12) {
+            stringData = stringData.substring(0, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        } else if (stringData.length <= 15) {
+            stringData = stringData.substring(0, stringData.length - 12) + ","
+                + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        } else if(stringData.length<=18){
+            stringData = stringData.substring(0, stringData.length - 15) + ","
+                + stringData.substring(stringData.length - 15, stringData.length - 12) + ","
+                + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
+                + stringData.substring(stringData.length - 4, stringData.length);
+        }
+        return stringData;
+    };
     getData() {
         return {
             chart: {
@@ -64,7 +84,7 @@ class PieChartCom extends React.Component {
                 series: {
                     dataLabels: {
                         enabled: true,
-                        format: '{point.name}: {point.y}'
+                        format:  '{point.name}: ' +'$' + ' ' +'{point.y}' + ' ' + 'CAD'
                     }
                 }
             },
@@ -83,9 +103,15 @@ class PieChartCom extends React.Component {
                     innerSize: '40%',
                     data: 
                     this.state.doughnutData.map(function(item){
-                            return {
+                        if(item.balance_cad != null){
+                            var yData = item.balance_cad.toFixed(8).toString();
+                            
+                        }else{
+                            var yData = "0.00000000"
+                        }
+                        return {
                                 name: item.currency,
-                                y:item.balance_cad,
+                                y:parseFloat(yData),
                                 x: item.balance_cad_percentage
                             }
                         })
