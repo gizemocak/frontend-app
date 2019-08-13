@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import './Table.scss';
 import ReactTable from 'react-table';
 import 'react-table/react-table.css';
-import ReactSearchBox from 'react-search-box'
+import ReactSearchBox from 'react-search-box';
+import TypeChecker from "typeco";
 
 import axios from "axios";
 const jwt = require('jsonwebtoken');
@@ -15,9 +16,11 @@ class TransactionTable extends Component {
         super(props);
         this.state = {
             historyOption: 10,
-            transactionData: []
+            transactionData: [],
+            filtered: []
         };
         this.handleChange = this.handleChange.bind(this);
+        this.getMatchedList = this.getMatchedList.bind(this);
     };
     handleChange = event => {
         const target = event.target;
@@ -73,24 +76,42 @@ class TransactionTable extends Component {
         };
     };
 
-    numberFormat(stringData){
-        if (stringData.length<8){
+    numberFormat(stringData) {
+        if (stringData.length < 8) {
             stringData = stringData;
         }
-        else if(stringData.length <= 12) {
+        else if (stringData.length <= 12) {
             stringData = stringData.substring(0, stringData.length - 4) + ","
                 + stringData.substring(stringData.length - 4, stringData.length);
         } else if (stringData.length <= 15) {
             stringData = stringData.substring(0, stringData.length - 12) + ","
                 + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
                 + stringData.substring(stringData.length - 4, stringData.length);
-        } else if(stringData.length<=18){
+        } else if (stringData.length <= 18) {
             stringData = stringData.substring(0, stringData.length - 15) + ","
                 + stringData.substring(stringData.length - 15, stringData.length - 12) + ","
                 + stringData.substring(stringData.length - 12, stringData.length - 4) + ","
                 + stringData.substring(stringData.length - 4, stringData.length);
         }
         return stringData;
+    };
+
+    getMatchedList(searchText) {
+        if (!TypeChecker.isEmpty(searchText)) {
+            const res = this.state.transactionData.filter(item => {
+                return item.description.includes(searchText)
+                    || item.date.includes(searchText)
+                    || item.investment.includes(searchText)
+                    || item.amount.includes(searchText)
+                    || item.amount_in_CAD.includes(searchText)
+            });
+
+            this.setState({ transactionData: res }, () => {
+                console.log(this.state.transactionData);
+            });
+        }else{
+            this.loadData();
+        }
     }
     render() {
         var data = [];
@@ -113,12 +134,6 @@ class TransactionTable extends Component {
         }, {
             id: 'amount_in_CAD',
             Header: 'Amount in CAD',
-            // accessor: (data) => {
-            //     var stringCAD = numeral(data.amount_in_CAD).format('$000,000,000.00000000');
-            //     return stringCAD;
-            // }
-            // accessor: 'amount_in_CAD'
-
             accessor: (data) => {
                 return '$' + data.amount_in_CAD;
             }
@@ -130,27 +145,36 @@ class TransactionTable extends Component {
                         <div className="table-title">Transaction History</div>
                         <div className="table-filters">
                             <div className="display-container">
-                                <label>Show  </label>
+                                <label>Show &ensp; </label>
                                 <select type="text" name="historyOption" placeholder="Investment" value={this.state.historyOption} onChange={this.handleChange}>
                                     <option value='10'>10</option>
-                                    <option value='20'>20</option>
-                                    <option value='all'>All</option>
+                                    <option value='25'>25</option>
+                                    <option value='50'>50</option>
+                                    <option value='100'>100</option>
                                 </select>
-                                <label>  Entites</label>
+                                <label> &ensp; Entites</label>
                             </div>
                             <div className="search-container">
                                 <ReactSearchBox
                                     placeholder="search"
+                                    onChange={v => {
+                                        console.log(v);
+                                        this.getMatchedList(v);
+                                    }}
                                 />
                             </div>
                         </div>
                     </div>
                     <div>
                         <ReactTable className="-striped"
-                            data={data}
+                            data={this.state.transactionData}
                             columns={columns}
-                            pageSize={this.state.historyOption != 20 && this.state.historyOption != "all" ? 10 : this.state.historyOption === 20 ? 20 : data.length}
-                            showPagination={false}
+                            showPageSizeOptions={false}
+                            pageSize={this.state.historyOption != 25 && this.state.historyOption != 50 && this.state.historyOption != 100 ? 10 : this.state.historyOption > data.length ? data.length : this.state.historyOption}
+                            showPagination={true}
+                            filterable
+                            // onFilteredChange={this.state.filtered}
+                            onFilteredChange={filtered => { this.setState({ filtered }); }}
                         />
                     </div>
                 </div>

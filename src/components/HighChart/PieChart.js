@@ -73,6 +73,7 @@ class PieChartCom extends React.Component {
         return stringData;
     };
     getData() {
+        
         return {
             chart: {
                 type: 'pie'

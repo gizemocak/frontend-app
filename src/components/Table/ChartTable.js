@@ -114,7 +114,6 @@ class ChartTable extends Component {
                     return '$' + data.balance;
                 } 
             }
-
         }, {
             // accessor: 'balance_cad',
             id: 'balance_cad',
